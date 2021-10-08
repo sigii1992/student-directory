@@ -180,6 +180,7 @@ end
 
 def save_students
   # open the file for writing
+  choose_filename
   file = File.open("students.csv", "w")
   # iterate over the array of students
   @students.each do |student|
@@ -191,6 +192,7 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
+  choose_filename
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
@@ -217,6 +219,11 @@ end
 
 def successful_action
   puts "Action was successful!"
+end
+
+def choose_filename
+  puts "Choose file name"
+  @user_filename = gets.chomp
 end
 
 #try_load_students
