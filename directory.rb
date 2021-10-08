@@ -181,30 +181,29 @@ end
 def save_students
   # open the file for writing
   choose_filename
-  file = File.open("students.csv", "w")
+  CSV.open(@user_filename, "w") do |file|
   # iterate over the array of students
-  @students.each do |student|
+   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    file << student_data
+   end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
   choose_filename
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
+  CSV.open(@user_filename, "r") do |file|
+   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   add_student(name, cohort)
+   end
   end
-  file.close
 end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
+  if CSV.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
