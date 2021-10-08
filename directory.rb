@@ -1,3 +1,5 @@
+require "csv"
+
 @students = [] # an empty array accessible to all methods
 
 def input_students
@@ -16,16 +18,17 @@ def input_students
       cohort = gets.downcase.chomp
     end
     # convert a string into symbol
-    cohort = cohort.to_sym
+     cohort = cohort.to_sym
     # Get mmore info about the student
-    puts "Enter hobbies: "
-    hobbies = gets.chomp
-    puts "Enter your country of birth: "
-    country = gets.chomp
-    puts "Enter your mother language: "
-    language = gets.chomp
+    # puts "Enter hobbies: "
+    # hobbies = gets.chomp
+    # puts "Enter your country of birth: "
+    # country = gets.chomp
+    # puts "Enter your mother language: "
+    # language = gets.chomp
     # add the student hash to the array
-    @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, language: language }
+    # @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, language: language }
+    add_student(name, cohort)
     # Use singular form when appropriate and plural form otherwise
     if @students.count == 1
       puts "Now we have #{@students.count} student"
@@ -44,7 +47,7 @@ def print_header
 end
 
 def print_students_list
-  @students.each_with_index { |student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort), hobbies: #{student[:hobbies]}, country of birth: #{student[:country]}, mother language: #{student[:language]}" }
+  @students.each_with_index { |student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" } # hobbies: #{student[:hobbies]}, country of birth: #{student[:country]}, mother language: #{student[:language]}" }
 end
 
 def print_footer
@@ -187,7 +190,7 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-  @students << {name: name, cohort: cohort.to_sym}
+  add_student(name, cohort)
   end
   file.close
 end
@@ -204,5 +207,10 @@ def try_load_students
   end
 end
 
-try_load_students
-interactive_menu
+def add_student(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
+
+#try_load_students
+ interactive_menu
