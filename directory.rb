@@ -194,7 +194,7 @@ def load_students(filename = "students.csv")
   choose_filename
   CSV.open(@user_filename, "r") do |file|
    file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
+  name, cohort = line[0], line[1]
   add_student(name, cohort)
    end
   end
@@ -225,5 +225,5 @@ def choose_filename
   @user_filename = gets.chomp
 end
 
-#try_load_students
  interactive_menu
+#try_load_students
