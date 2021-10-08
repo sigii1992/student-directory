@@ -65,7 +65,7 @@ def print_by_letter
   puts "Give me a letter that I could print the names starting with this specific letter: "
   letter = gets.chomp
   # Prints you all the names from the list starting with the letter user gave us
-  @students.each { |student| puts "#{student[:name]} (#{student[:cohort]} cohort), hobbies: #{student[:hobbies]}, country of birth: #{student[:country]}, mother language: #{student[:language]}" if student[:name][0].downcase == letter }
+  @students.each { |student| puts "#{student[:name]} (#{student[:cohort]} cohort)"} # hobbies: #{student[:hobbies]}, country of birth: #{student[:country]}, mother language: #{student[:language]}" if student[:name][0].downcase == letter }
 end
 
 # Prints all the names which length is less than 12
@@ -77,7 +77,7 @@ end
 def print_using_loop
   acc = 0
   while acc < @students.length do
-    puts "#{acc + 1}. #{students[acc][:name]} (#{students[acc][:cohort]} cohort), hobbies: #{student[:hobbies]}, country of birth: #{student[:country]}, mother language: #{student[:language]}"
+    puts "#{acc + 1}. #{students[acc][:name]} (#{students[acc][:cohort]} cohort)"  # hobbies: #{student[:hobbies]}, country of birth: #{student[:country]}, mother language: #{student[:language]}"
     acc += 1   
   end    
 end
@@ -159,12 +159,16 @@ end
 def process(selection)
   case selection
     when "1"
+      successful_action
       input_students
     when "2"
+      successful_action
       show_students
     when "3"
+      successful_action
       save_students
     when "4"
+      successful_action
       load_students
     when "9"
       exit
@@ -211,6 +215,9 @@ def add_student(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
+def successful_action
+  puts "Action was successful!"
+end
 
 #try_load_students
  interactive_menu
